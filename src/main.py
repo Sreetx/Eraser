@@ -130,9 +130,9 @@ if mode == "image-background-eraser":
     image_eraser(media, output)
 elif mode == "video-background-eraser":
     bannerd()
-        print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Video Background Eraser...."+reset)
-        print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
-        print(putih+" ["+banmerah+"*"+reset+putih+"] Nantikan Update berikutnya!..."+reset);sys.exit()
+    print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Video Background Eraser...."+reset)
+    print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
+    print(putih+" ["+banmerah+"*"+reset+putih+"] Nantikan Update berikutnya!..."+reset);sys.exit()
 elif easy_mode:
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Masuk ke easy mode!"+reset); time.sleep(1)
