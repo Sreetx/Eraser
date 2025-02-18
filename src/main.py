@@ -114,6 +114,8 @@ menu.add_argument('--media', dest='media', help='Masukkan media gambar atau vide
 menu.add_argument('--easy-mode', dest='easy_mode', action="store_true", default=False, help='Masuk ke easy mode aja kalo mode option parser terasa sulit')
 menu.add_argument('--hh', dest='hh', action='store_true', default=False, help='Menu bantuan')
 menu.add_argument('-o', '--output', dest='output', default='', help='Lokasi file akan disimpan')
+menu.add_argument('--update', dest='update', action='store_true', default=False, help='Hanya mengupdate script utama')
+menu.add_argument('--update-all', dest='updated', action='store_true', default=False, help='Untuk mengupdate semua module script bahkan mengupdate script utama')
 option = menu.parse_args()
 
 mode = option.mode
@@ -121,6 +123,8 @@ easy_mode = option.easy_mode
 hh = option.hh
 media = str(option.media).strip()
 output = str(option.output).strip()
+update = option.update
+update_all = option.updated
 
 if mode == "image-background-eraser":
     bannerd()
@@ -138,6 +142,40 @@ elif easy_mode:
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Masuk ke easy mode!"+reset); time.sleep(1)
 elif hh:
     help()
+elif update_all:
+    try:
+        import socket, requests
+    except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
+    socket.create_connection(('8.8.8.8', 53), timeout=3)
+    print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Checking Update..."+reset);time.sleep(0.2)
+    maind = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/main.py")
+    colorr = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/color/warna.py")
+    logoo = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/color/logo.txt")
+    maind_byte = maind.content.decode("utf-8")
+    colorr_byte = colorr.content.decode("utf-8")
+    logoo_byte = logoo.content.decode("utf-8")
+    os.makedirs('color', exist_ok=True)
+    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
+    with open("main.py", "w", encoding="utf-8") as a:
+        a.write(maind_byte)
+    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Color Script..."+reset);time.sleep(0.2)
+    with open("color/warna.py", "w", encoding="utf-8") as b:
+        b.write(colorr_byte)
+    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Updating Logo/Banner..."+reset);time.sleep(0.2)
+    with open("color/logo.txt", "w", encoding="utf-8") as c:
+        c.write(logoo_byte)
+    print(putih+"\n ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
+
+elif update:
+    try:
+        import socket, requests
+    except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
+    maind = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/main.py")
+    maind_byte = maind.content.decode("utf-8")
+    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
+    with open("main.py", "w", encoding="utf-8") as a:
+        a.write(maind_byte)
+    print(putih+"\n ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
 else:
     help()
     print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Input lu salah atau lu gk masukkan input sama sekali!")
