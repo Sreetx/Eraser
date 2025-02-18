@@ -140,6 +140,7 @@ elif mode == "video-background-eraser":
 elif easy_mode:
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Masuk ke easy mode!"+reset); time.sleep(1)
+    print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
 elif hh:
     help()
 elif update_all:
