@@ -10,6 +10,8 @@ Penghapus background gambar dan video secara gratis!
 
 # Changelog
 
+    (19/02/2025)[1.3.7.19022025]: Pemambahan opsi peringatan pada awal script dijalankan!
+
     (18/02/2025)[1.3.6.18022025]: Penambahan fitur Update di script supaya lebih memudahkan update
     
     (18/02/2025)[1.2.6.17022025]: Versi awal Eraser dengan banyak perbaikan bug
