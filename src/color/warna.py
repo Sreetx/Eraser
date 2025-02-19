@@ -64,7 +64,7 @@ def banner():
         print('\n')
         print(ini)
         print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" Atuhor:    "+hijau+"Sreetx"+reset)
-        print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" Version:    "+hijau+"1.3.6.18022025"+reset)
+        print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" Version:    "+hijau+"1.3.7.19022025"+reset)
         print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" Language:   "+hijau+"Python"+reset)
         print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" License:    "+hijau+"GNU GPL v3"+reset)
         print(orange+" ["+banhijau+"*"+reset+orange+"]"+putih+" YouTube:    "+hijau+"https://youtube.com/@linggachannel4781"+reset)
