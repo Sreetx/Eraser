@@ -110,7 +110,7 @@ Usage:
     python3 main.py --hh
 
  """+kelabu+"""["""+orange+"""*"""+kelabu+"""]"""+putih+""" Tanpa menggunakan opsi output. file akan otomatis di simpan di Eraser/src/hasil/
- """+kelabu+"""["""+orange+"""*"""+kelabu+"""]"""+putih+""" Wajib menggunakan backslash untuk memasukkan path media!"""+reset)
+ """+kelabu+"""["""+orange+"""*"""+kelabu+"""]"""+putih+""" Wajib menggunakan backslash untuk memasukkan path media atau path output!"""+reset)
 
 #Menggunakan ArgumentParser karena jika penggunakan OptionParser input spasi tidak dapat ditangkap dengan benar
 menu = ArgumentParser()
