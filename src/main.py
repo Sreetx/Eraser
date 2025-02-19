@@ -21,6 +21,8 @@ import os, sys, time
 from argparse import ArgumentParser
 
 try:
+    print(" [*] Importing Module...\n")
+    print(" [*] Mungkin agak lama karena kami harus mengimpor file logo.txt ini juga berpengaruh tergantung kecepatan device kalian!")
     try:
         import sys, os, time, webbrowser
         from color.warna import orange
