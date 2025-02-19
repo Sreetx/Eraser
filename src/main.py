@@ -101,6 +101,8 @@ Options: python3 main.py [option]
     --easy-mode Pake easy mode langsung kalo nggak terbiasa dengan option parser
     --hh        Tampilkan menu bantuan ini!
     -o --output Tentukan lokasi gambar disimpan (default: "hasil")
+    --update
+    --update-all
 Usage:
     python3 main.py --mode=image-background-eraser --media="/path/to/you image" -o /folder/destination/
     python3 main.py --mode=video-background-eraser --media=/path/to/video -o /folder/destination/
