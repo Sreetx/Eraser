@@ -46,7 +46,7 @@ try:
     except ImportError:
         print(' [!] Harap install ulang script ini dari repository github kami!');sys.exit()
     try:
-        from rembg import remove
+        from rembg import remove, new_session
         from PIL import Image
         from PIL import ImageEnhance
         import numpy as np
@@ -56,19 +56,21 @@ try:
         print(" [!] Coba install module ini: pillow, numpy, rembg, onnxruntime");sys.exit()
 except KeyboardInterrupt: print(" [!] Dibatalkan...");sys.exit()
 
-def image_eraser(media, output):
+def image_eraser(media, output, model):
+    if model is None or model == "":
+        print(kelabu+" ["+banmerah+"!"+reset+kelabu+"]"+putih+" Masukkan model untuk pemrosesan!"+reset);sys.exit()
     default_path = media.split("/")[-1]
     if not os.path.exists('hasil'):
         os.makedirs('hasil')
     if output == '':
         with open(media, 'rb') as imag:
             imaga = imag.read()
-        imagee = Image.open(io.BytesIO(imaga))
+        session = new_session(model)
+        imagee = Image.open(io.BytesIO(imaga)).convert("RGBA")
         imagee_np = np.array(imagee)
-        med = remove(imagee_np, alpha_matting=True, alpha_matting_foreground_threshold=250, alpha_matting_background_threshold=5, alpha_matting_erode_size=5)
+        med = remove(imagee_np, session=session, alpha_matting=True, alpha_matting_foreground_threshold=250, alpha_matting_background_threshold=5, alpha_matting_erode_size=5)
         outd = Image.fromarray(med)
-        a = 'hasil/eraser-'+default_path
-        with open("hasil/eraser-"+default_path, 'wb') as outs:
+        with open(output+"/eraser-"+default_path, 'wb') as outs:
             with io.BytesIO() as byte_io:
                 outd.save(byte_io, format='PNG')
                 byte_io.seek(0)
@@ -80,9 +82,10 @@ def image_eraser(media, output):
             os.makedirs(output)
         with open(media, 'rb') as imag:
             imaga = imag.read()
-        imagee = Image.open(io.BytesIO(imaga))
+        session = new_session(model)
+        imagee = Image.open(io.BytesIO(imaga)).convert("RGBA")
         imagee_np = np.array(imagee)
-        med = remove(imagee_np, alpha_matting=True, alpha_matting_foreground_threshold=250, alpha_matting_background_threshold=5, alpha_matting_erode_size=5)
+        med = remove(imagee_np, session=session, alpha_matting=True, alpha_matting_foreground_threshold=250, alpha_matting_background_threshold=5, alpha_matting_erode_size=5)
         outd = Image.fromarray(med)
         with open(output+"/eraser-"+default_path, 'wb') as outs:
             with io.BytesIO() as byte_io:
@@ -101,11 +104,13 @@ Options: python3 main.py [option]
     --easy-mode Pake easy mode langsung kalo nggak terbiasa dengan option parser
     --hh        Tampilkan menu bantuan ini!
     -o --output Tentukan lokasi gambar disimpan (default: "hasil")
+    --model     Masukkan model yang akan di gunakan ('u2net'; 'u2net_human_seg'; 'silueta')
     --update
     --update-all
 Usage:
-    python3 main.py --mode=image-background-eraser --media="/path/to/you image" -o /folder/destination/
-    python3 main.py --mode=video-background-eraser --media=/path/to/video -o /folder/destination/
+    python3 main.py --mode=image-background-eraser --model=u2net --media="/path/to/you image" -o /folder/destination/
+    python3 main.py --mode=video-background-eraser --model=u2net --media=/path/to/video -o /folder/destination/
+    python3 main.py --model=u2net
     python3 main.py --easy-mode
     python3 main.py --hh
 
@@ -121,6 +126,7 @@ menu.add_argument('--hh', dest='hh', action='store_true', default=False, help='M
 menu.add_argument('-o', '--output', dest='output', default='', help='Lokasi file akan disimpan')
 menu.add_argument('--update', dest='update', action='store_true', default=False, help='Hanya mengupdate script utama')
 menu.add_argument('--update-all', dest='updated', action='store_true', default=False, help='Untuk mengupdate semua module script bahkan mengupdate script utama')
+menu.add_argument('--model', dest='model', help='Pilih Model untuk proses')
 option = menu.parse_args()
 
 mode = option.mode
@@ -130,13 +136,14 @@ media = str(option.media).strip()
 output = str(option.output).strip()
 update = option.update
 update_all = option.updated
+model = option.model
 
 if mode == "image-background-eraser":
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Image Background Eraser...."+reset)
     print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
     print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
-    image_eraser(media, output)
+    image_eraser(media, output, model)
 if mode == "video-background-eraser":
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Video Background Eraser...."+reset)
@@ -185,6 +192,7 @@ if easy_mode:
     if mode == "image-background-eraser":
         media = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path file gambar (.jpg; .png; .jpeg;): "+reset).strip())
         output = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path output: "+reset).strip())
+        model = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan model ('u2net'; 'u2net_human_seg'; 'silueta': "+reset).strip())
         print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
         print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
         image_eraser(media, output)
