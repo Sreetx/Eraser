@@ -174,10 +174,10 @@ if update:
     except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
     maind = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/main.py")
     maind_byte = maind.content.decode("utf-8")
-    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
+    print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
     with open("main.py", "w", encoding="utf-8") as a:
         a.write(maind_byte)
-    print(putih+"\n ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
+    print(putih+" ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
 if easy_mode:
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Easy Mode...."+reset)
