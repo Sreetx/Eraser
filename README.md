@@ -10,6 +10,8 @@ Penghapus background gambar dan video secara gratis!
 
 # Changelog
 
+    (22/02/2025)[2.5.8.22022025]: Menampilkan pemilihan model untuk penghapusan background
+
     (22/02/2025)[2.4.7.22022025]: Easy mode sudah tersedia buat kalian yg gk biasa pake parser, ini juga supoort di windows asal masukin path media dan outputnya wajib pake backslash ("/")
 
     (19/02/2025)[1.3.7.19022025]: Pemambahan opsi peringatan pada awal script dijalankan!
