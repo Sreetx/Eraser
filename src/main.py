@@ -74,7 +74,7 @@ def image_eraser(media, output):
                 byte_io.seek(0)
                 outs.write(byte_io.read())
         print(putih+" ["+banorange+"✔️"+reset+putih+"] Pemrosesan gambar Berhasil!"+reset)
-        print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+a+reset)
+        print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+a+reset);sys.exit()
     else:
         if not os.path.exists(output):
             os.makedirs(output)
@@ -90,7 +90,7 @@ def image_eraser(media, output):
                 byte_io.seek(0)
                 outs.write(byte_io.read())
         print(putih+" ["+banorange+"✔️"+reset+putih+"] Pemrosesan gambar Berhasil!"+reset)
-        print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+output+"eraser-"+default_path+reset)
+        print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+output+"eraser-"+default_path+reset);sys.exit()
 
 def help():
     banner()
