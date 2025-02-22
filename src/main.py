@@ -21,7 +21,7 @@ import os, sys, time
 from argparse import ArgumentParser
 
 try:
-    print(" [*] Importing Module...\n")
+    print(" [*] Importing Module...")
     print(" [*] Mungkin agak lama karena kami harus mengimpor file logo.txt ini juga berpengaruh tergantung kecepatan device kalian!")
     try:
         import sys, os, time, webbrowser
@@ -137,18 +137,14 @@ if mode == "image-background-eraser":
     print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
     print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
     image_eraser(media, output)
-elif mode == "video-background-eraser":
+if mode == "video-background-eraser":
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Video Background Eraser...."+reset)
     print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
     print(putih+" ["+banmerah+"*"+reset+putih+"] Nantikan Update berikutnya!..."+reset);sys.exit()
-elif easy_mode:
-    bannerd()
-    print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Masuk ke easy mode!"+reset); time.sleep(1)
-    print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
-elif hh:
+if hh:
     help()
-elif update_all:
+if update_all:
     try:
         import socket, requests
     except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
@@ -161,18 +157,18 @@ elif update_all:
     colorr_byte = colorr.content.decode("utf-8")
     logoo_byte = logoo.content.decode("utf-8")
     os.makedirs('color', exist_ok=True)
-    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
+    print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Main Script..."+reset);time.sleep(0.2)
     with open("main.py", "w", encoding="utf-8") as a:
         a.write(maind_byte)
-    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Color Script..."+reset);time.sleep(0.2)
+    print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Installing Color Script..."+reset);time.sleep(0.2)
     with open("color/warna.py", "w", encoding="utf-8") as b:
         b.write(colorr_byte)
-    print(kelabu+"\n ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Updating Logo/Banner..."+reset);time.sleep(0.2)
+    print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Updating Logo/Banner..."+reset);time.sleep(0.2)
     with open("color/logo.txt", "w", encoding="utf-8") as c:
         c.write(logoo_byte)
-    print(putih+"\n ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
+    print(putih+" ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
 
-elif update:
+if update:
     try:
         import socket, requests
     except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
@@ -182,6 +178,20 @@ elif update:
     with open("main.py", "w", encoding="utf-8") as a:
         a.write(maind_byte)
     print(putih+"\n ["+banhijau+"UPDATE"+reset+putih+"] Update Succed!"+reset);sys.exit()
+if easy_mode:
+    bannerd()
+    print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Easy Mode...."+reset)
+    mode = input(kelabu+" ["+orange+">"+kelabu+"]"+putih+" Pilih Mode, [image-background-eraser] or [video-background-eraser]: ")
+    if mode == "image-background-eraser":
+        media = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path file gambar (.jpg; .png; .jpeg;): "+reset).strip())
+        output = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path output: "+reset).strip())
+        print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
+        print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
+        image_eraser(media, output, smooth=True, mode="u2net")
+    if mode == "video-background-eraser":
+        bannerd()
+        print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Fitur belum tersedia, Nantikan update selanjutnya"+reset)
+        pass
 else:
     help()
     print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Input lu salah atau lu gk masukkan input sama sekali!")
