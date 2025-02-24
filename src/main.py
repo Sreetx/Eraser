@@ -110,7 +110,6 @@ Options: python3 main.py [option]
 Usage:
     python3 main.py --mode=image-background-eraser --model=u2net --media="/path/to/you image" -o /folder/destination/
     python3 main.py --mode=video-background-eraser --model=u2net --media=/path/to/video -o /folder/destination/
-    python3 main.py --model=u2net
     python3 main.py --easy-mode
     python3 main.py --hh
 
