@@ -104,7 +104,7 @@ Options: python3 main.py [option]
     --easy-mode Pake easy mode langsung kalo nggak terbiasa dengan option parser
     --hh        Tampilkan menu bantuan ini!
     -o --output Tentukan lokasi gambar disimpan (default: "hasil")
-    --model     Masukkan model yang akan di gunakan ('u2net'; 'u2net_human_seg'; 'silueta')
+    --model     Masukkan model yang akan di gunakan ('u2net'; 'u2net_human_seg'; 'silueta'; 'inset-general-use';)
     --update
     --update-all
 Usage:
@@ -192,7 +192,7 @@ if easy_mode:
     if mode == "image-background-eraser":
         media = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path file gambar (.jpg; .png; .jpeg;): "+reset).strip())
         output = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan path output: "+reset).strip())
-        model = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan model ('u2net'; 'u2net_human_seg'; 'silueta';): "+reset).strip())
+        model = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan model ('u2net'; 'u2net_human_seg'; 'silueta'; 'inet-general-use'): "+reset).strip())
         print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
         print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
         image_eraser(media, output, model)
