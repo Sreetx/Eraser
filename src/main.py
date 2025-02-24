@@ -53,7 +53,7 @@ try:
         import io
     except Exception as e:
         print(e)
-        print(" [!] Coba install module ini: pillow, numpy, rembg, onnxruntime");sys.exit()
+        print(" [!] Coba install module ini: pillow, numpy, rembg");sys.exit()
 except KeyboardInterrupt: print(" [!] Dibatalkan...");sys.exit()
 
 def image_eraser(media, output, model):
