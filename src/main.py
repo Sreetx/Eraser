@@ -195,7 +195,7 @@ if easy_mode:
         model = str(input(kelabu+" ["+orange+">"+reset+kelabu+"]"+putih+" Masukan model ('u2net'; 'u2net_human_seg'; 'silueta';): "+reset).strip())
         print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
         print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Memproses...."+reset)
-        image_eraser(media, output)
+        image_eraser(media, output, model)
     if mode == "video-background-eraser":
         bannerd()
         print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Fitur belum tersedia, Nantikan update selanjutnya"+reset)
