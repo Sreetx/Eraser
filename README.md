@@ -43,7 +43,7 @@ Cara penggunaan mudah dengan beberapa model AI bawaan rembg untuk membantu mempe
 
 # Changelog
 
-    (26/02/2025)[3.6.10.26022025]: Penambahan fitur untuk menghapus gambar dari url dan bukan hanya dari file lokal
+    (26/02/2025)[3.6.10.26022025]: Penambahan fitur untuk menghapus background gambar dari url dan bukan hanya dari file lokal
 
     (22/02/2025)[2.5.8.22022025]: Menampilkan pemilihan model untuk penghapusan background
 
