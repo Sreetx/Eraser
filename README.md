@@ -6,7 +6,7 @@ Penghapus background gambar dan video secara gratis!
 
 # Eraser-1.2.6.17022025
 
-![Eraser: 1.2.6.17122025](https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/Screenshot_20250218_172237.png)
+![Eraser: 3.6.10.26022025](https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/color/Screenshot_20250226_203010.png)
 
 
 Kita disini menggunakan rembg python untuk memproses penghapusan background gambar dan hasil nya cukup sempurna dan yang paling penting ini gratis untuk semua kalangan!
