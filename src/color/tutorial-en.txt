@@ -1,0 +1,55 @@
+		Sreetx Image/Video Background Eraser
+
+[EN]:
+Tools Usage Guide
+
+Options:
+--mode to specify what type of mode to use, image-background-eraser or video-background-eraser mode.
+
+Usage:
+    --mode=image-background-eraser
+    --mode=video-background-eraser
+
+--media    To enter the path of an image or video file on your computer
+--url   To replace the --media function because --url takes the image directly through the link!
+
+Usage:
+    --media="/path/file/image/or/video"
+    --url="https://gambar.com/gambar.jpg"
+
+--model To determine which AI to use, select one of these AI models
+    1. u2net => Regular AI model
+    2. u2net_human_seg => AI model with enhancements for human objects
+    3. silueta => lighter version of u2net but not lite
+    4. isnet-general-use => Pre-trained model for general use
+    5. u2netp => lite version of u2net
+    6. u2net_cloth_seg => Pre-trained model for separating human clothes from top, middle, and bottom. can't make anything weird!
+    7. isnet-anime => AI model developed specifically for retrieving subjects from anime
+Usage:
+    --model=u2net
+
+--easy-mode To enter simple easy mode without parser interference
+
+Usage:
+    --easy-mode
+
+-o --output To specify the path where the processed output file is saved. If you do not use this option, the file will be saved automatically in the results folder/in this tools directory
+
+Usage:
+    -o="/path/folder/to/elu/image”
+    --output="/path/folder/to/elu/image”
+
+--update Regular tools update menu
+--update-all To update all components in this tool including images, etc.
+
+[Usage Example]
+    python3 main.py --mode=image-background-eraser --media=“/path/ke/file/image elu” --model=u2net_human_seg -o="/path/ke/folder destination/”
+    python3 main.py --update
+    python3 main.py --update-all
+    python3 main.py --hh
+
+[NOTES]
+    It is mandatory to use a backslash on all systems for media input or output!
+    If the --output option is not used, the file will be saved automatically in the results folder.
+
+Translated with DeepL.com

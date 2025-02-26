@@ -1,0 +1,54 @@
+		Sreetx Image/Video Background Eraser
+
+[ID]:
+Panduan Penggunaan tools
+
+[OPTIONS]
+--mode    untuk menentukan jenis mode apa yang akan digunakan, mode image-background-eraser atau video-background-eraser
+
+Penggunaan:
+    --mode=image-background-eraser
+    --mode=video-background-eraser
+
+--media    Untuk memasukkan path file gambar atau video yang ada di komputer
+--url    Untuk menggantikan fungsi --media karena --url mengambil langsung gambar melalui link!
+
+Penggunaan:
+    --media="/lokasi/file/gambar/atau/video"
+    --url="https://gambar.com/gambar.jpg"
+
+--model   Untuk menentukan AI mana yang akan digunakan, pilih salah satu dari model AI ini
+    1. u2net => Model AI reguler
+    2. u2net_human_seg => Model AI dengan peningkatan untuk objek manusia
+    3. silueta => u2net versi lebih ringan tapi bukan lite
+    4. isnet-general-use => Model pra-latih untuk penggunaan umum
+    5. u2netp => u2net versi lite
+    6. u2net_cloth_seg => Model pra-latih untuk memisahkan pakaian manusia mulai dari atas, tengah, dan bawah. gk bisa dibuat yg aneh aneh!
+    7. isnet-anime => Model AI yang dikembangkan khusus untuk mengambil subjek dari anime
+
+Penggunaan:
+    --model=u2net
+
+--easy-mode    Untuk masuk ke mode mudah sederhana tanpa campur aduk parser
+
+Penggunaan:
+    --easy-mode
+
+-o    --output    Untuk menentukan path dimana output gamabr yang sudah di proses disimpan. Jika tidak menggunakan opsi ini maka file akan disimpan otomatis di folder hasil/ di direktori tools ini
+
+Penggunaan:
+    -o="/path/folder/ke/gambar elu/"
+    --output="/path/folder/ke/gambar elu/"
+    --update        Menu update tools biasa
+    --update-all    Untuk mengupdate semua komponen yang ada di tools ini termasuk gambar, dll
+
+[Contoh Penggunaan]
+    python3 main.py --mode=image-background-eraser --media="/path/ke/file/gambar elu" --model=u2net_human_seg -o="/path/ke/folder tujuan/"
+    python3 main.py --mode=image-background-eraser --url="https://gambar.com/gambar.png --model=u2net_human_seg -o="/path/ke/folder tujuan/"
+    python3 main.py --update
+    python3 main.py --update-all
+    python3 main.py --hh
+
+[CATATAN]:
+    Wajib menggunakan backslash di semua sistem untuk masukkan media ataupun output!
+    Jika tidak menggunakan opsi --output maka file akan disimpan otomatis di folder hasil/ di direktori tools ini
