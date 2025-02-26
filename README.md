@@ -12,24 +12,38 @@ Penghapus background gambar dan video secara gratis!
 Kita disini menggunakan rembg python untuk memproses penghapusan background gambar dan hasil nya cukup sempurna dan yang paling penting ini gratis untuk semua kalangan!
 Cara penggunaan mudah dengan beberapa model AI bawaan rembg untuk membantu memperhalus dan memperindah hasil gambar. Ada beberapa model yang akan kami kenalkan
 
-    u2net
+1. u2net =>
 
-Model ini adalah versi standar dari AI rmbg dan memiliki kecepatan pemrosesan yang standar atau biasa saja
+       Model AI reguler
 
-    u2net_human_seg
+2. u2net_human_seg =>
 
-Model yang paling cocok untuk menghapus background dengan gambar manusia dengan kualitas yang sangat baik
+       Model AI dengan peningkatan untuk objek manusia
 
-    silueta
+3. silueta =>
 
-Model eksperimental yang dikembangkan untuk segmentasi manusia. Lebih ringan dibandingkan u2net_human_seg, tetapi tetap fokus pada pemrosesan objek manusia.
+        u2net versi lebih ringan tapi bukan lite
+    
+4. isnet-general-use =>
 
-    isnet-general-use
+       Model pra-latih untuk penggunaan umum
 
-Akurasi tinggi dalam pemotongan gambar, bukan cuma buat objek manusia tapi bisa juga buat anime. Ini juga merupakan pengembangan lebih lanjut dari  u2net biasa
+5. u2netp =>
+
+        u2net versi lite
+
+6. u2net_cloth_seg =>
+
+        Model pra-latih untuk memisahkan pakaian manusia mulai dari atas, tengah, dan bawah. gk bisa dibuat yg aneh aneh!
+    
+7. isnet-anime =>
+
+        Model AI yang dikembangkan khusus untuk mengambil subjek dari anime
 
 
 # Changelog
+
+    (26/02/2025)[3.6.10.26022025]: Penambahan fitur untuk menghapus gambar dari url dan bukan hanya dari file lokal
 
     (22/02/2025)[2.5.8.22022025]: Menampilkan pemilihan model untuk penghapusan background
 
