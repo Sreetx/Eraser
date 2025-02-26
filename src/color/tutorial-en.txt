@@ -46,6 +46,7 @@ Usage:
     python3 main.py --mode=image-background-eraser --media=“/path/ke/file/image elu” --model=u2net_human_seg -o="/path/ke/folder destination/”
     python3 main.py --update
     python3 main.py --update-all
+    python3 main.py --easy-mode
     python3 main.py --hh
 
 [NOTES]
