@@ -4,7 +4,7 @@ Free Image and Video Background Remover
 
 Penghapus background gambar dan video secara gratis!
 
-# Eraser-1.2.6.17022025
+# Eraser-3.6.10.26022025
 
 ![Eraser: 3.6.10.26022025](https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/color/Screenshot_20250226_203010.png)
 
