@@ -25,6 +25,8 @@ Penggunaan:
     5. u2netp => u2net versi lite
     6. u2net_cloth_seg => Model pra-latih untuk memisahkan pakaian manusia mulai dari atas, tengah, dan bawah. gk bisa dibuat yg aneh aneh!
     7. isnet-anime => Model AI yang dikembangkan khusus untuk mengambil subjek dari anime
+[CATATAN]
+Jika hasil kurang maksimal, coba semua model tersebut satu satu
 
 Penggunaan:
     --model=u2net
