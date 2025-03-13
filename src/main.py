@@ -51,10 +51,14 @@ try:
         from PIL import ImageEnhance
         import numpy as np
         import io
-        from pathlib import Path
+        import ffmpeg
+        import glob
+        import shutil
+        from multiprocessing import Pool, cpu_count
+        from tqdm import tqdm
     except Exception as e:
         print(e)
-        print(" [!] Coba install module ini: pillow, numpy, rembg");sys.exit()
+        print(" [!] Coba install module ini: pillow, numpy, rembg, ffmpeg, onnxruntime(opsional)");sys.exit()
 except KeyboardInterrupt: print(" [!] Dibatalkan...");sys.exit()
 
 os.system('cls || clear')
@@ -62,21 +66,21 @@ def image_eraser(media, output, model, url):
     if model is None or model == "":
         print(kelabu+" ["+banmerah+"!"+reset+kelabu+"]"+putih+" Masukkan model untuk pemrosesan!"+reset);sys.exit()
     default_path = media.split("/")[-1]
-    if not os.path.exists('hasil'):
-        os.makedirs('hasil')
+    os.makedirs('hasil', exist_ok=True)
     if url:
-        if not os.path.exists('cache'):
-            os.makedirs('cache')
+        os.makedirs('cache', exist_ok=True)
         try:
             import socket, requests
+            socket.create_connection(('8.8.8.8', 53), timeout=5)
         except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
-        socket.create_connection(('8.8.8.8', 53), timeout=3)
         print(kelabu+" ["+orange+"*"+reset+kelabu+"]"+putih+" Mengunduh gambar..."+reset)
         req = requests.get(url)
         dirr = url.split("/")[-1]
         caches = os.path.join('cache', dirr)
         with open (caches, 'wb') as ca:
             ca.write(req.content)
+        print(kelabu+" ["+banhijau+"✔️"+reset+kelabu+"]"+hijau+" Pengunduhan Selesai"+reset)
+
     if media == "":
         media = 'cache/'+dirr
     if default_path == "":
@@ -101,8 +105,7 @@ def image_eraser(media, output, model, url):
         print(putih+" ["+banorange+"✔️"+reset+putih+"] Pemrosesan gambar Berhasil!"+reset)
         print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+a+reset);sys.exit()
     else:
-        if not os.path.exists(output):
-            os.makedirs(output)
+        os.makedirs(output, exist_ok=True)
         with open(media, 'rb') as imag:
             imaga = imag.read()
         session = new_session(model)
@@ -117,6 +120,58 @@ def image_eraser(media, output, model, url):
                 outs.write(byte_io.read())
         print(putih+" ["+banorange+"✔️"+reset+putih+"] Pemrosesan gambar Berhasil!"+reset)
         print(putih+" ["+banhijau+"#"+reset+putih+"] Gambar disimpan di "+output+"eraser-"+default_path+reset);sys.exit()
+
+def remove_background(args):
+    model, frame_raw = args
+    with open(frame_raw, 'rb') as imag:
+        imaga = imag.read()
+    session = new_session(model)
+    imagee = Image.open(io.BytesIO(imaga)).convert("RGBA")
+    imagee_np = np.array(imagee)
+    med = remove(imagee_np, session=session, alpha_matting=True, alpha_matting_foreground_threshold=250, alpha_matting_background_threshold=5, alpha_matting_erode_size=5)
+    outd = Image.fromarray(med)
+    output_path = os.path.join("cache/frame_eraser/", os.path.basename(frame_raw))
+    outd.save(output_path)
+
+def video_background_eraser(media, output, model):
+    name = media.split("/")[-1]
+    probe = ffmpeg.probe(media)
+    video_stream = next((stream for stream in probe["streams"] if stream["codec_type"] == "video"), None)
+    if video_stream:
+        width = int(video_stream["width"])
+        height = int(video_stream["height"])
+        fps = eval(video_stream["r_frame_rate"])
+    if output is None or output == "":
+        output = "hasil"
+    os.makedirs('cache', exist_ok=True)
+    os.makedirs('cache/frame', exist_ok=True)
+    os.makedirs(output, exist_ok=True)
+
+    #Extract Frame
+    print(kelabu+" ["+hijau+"..."+reset+kelabu+"]"+putih+" Mengekstrak frame..."+reset)
+    ffmpeg.input(media).output("cache/frame/animation_%01d.png", format="image2", vcodec="png").run(quiet=True)
+
+    #Eraser
+    os.makedirs('cache/frame_eraser', exist_ok=True)
+    out = 'cache/frame_eraser'
+
+    print(kelabu+" ["+orange+"~"+kelabu+"]"+putih+" Membersihkan Background...")
+    frame_list = sorted(glob.glob("cache/frame/*.png"))
+    total_frame = len(frame_list)
+    task_list = [(model, frame) for frame in frame_list]
+    num_workers = cpu_count()
+    optimal_chunksize = max(4, len(task_list) // (num_workers * 4))
+    with Pool(num_workers) as p, tqdm(total=total_frame, unit="frame"):
+        for _ in p.imap_unordered(remove_background, task_list, chunksize=optimal_chunksize):
+            pass
+    # Penyatuan Frame
+    outsd = output+name
+    print(kelabu+" ["+orange+"~"+kelabu+"]"+putih+" Memproses hingga menjadi video kembali...")
+    ffmpeg.input("cache/frame_eraser/animation_%01d.png").output(outsd, vcodec="libx264", crf=23, s=f"{width}x{height}").run(quiet=True)
+    shutil.rmtree("cache/frame")
+    shutil.rmtree("cache/frame_eraser")
+    print(putih+" ["+banorange+"✔️"+reset+putih+"] Pemrosesan penghapusan background video Berhasil!"+reset)
+    print(putih+" ["+banhijau+"#"+reset+putih+"] Video disimpan di "+hijau+output+name+reset);sys.exit()
 
 def help(hh):
     banner()
@@ -134,7 +189,7 @@ def help(hh):
 #Menggunakan ArgumentParser karena jika penggunakan OptionParser input spasi tidak dapat ditangkap dengan benar
 menu = ArgumentParser()
 menu.add_argument('--mode', dest='mode', default='', help='Tentukan mode')
-menu.add_argument('--media', dest='media',default='', help='Masukkan media gambar atau video yang akan di bersihkan background nya')
+menu.add_argument('--media', dest='media', default='', help='Masukkan media gambar atau video yang akan di bersihkan background nya')
 menu.add_argument('--easy-mode', dest='easy_mode', action="store_true", default=False, help='Masuk ke easy mode aja kalo mode option parser terasa sulit')
 menu.add_argument('--hh', dest='hh', help='Menu bantuan')
 menu.add_argument('-o', '--output', dest='output', default='', help='Lokasi file akan disimpan')
@@ -142,6 +197,7 @@ menu.add_argument('--update', dest='update', action='store_true', default=False,
 menu.add_argument('--update-all', dest='updated', action='store_true', default=False, help='Untuk mengupdate semua module script bahkan mengupdate script utama')
 menu.add_argument('--url', dest='url', default='', help='Unduh dan hapus latar belakang gambar secara langsung!')
 menu.add_argument('--model', dest='model', help='Pilih Model untuk proses')
+menu.add_argument('--multi', dest='multi', action='store_true', default=False, help='masukkan input berapa gambar yang akan di gunakan (int)')
 option = menu.parse_args()
 
 mode = option.mode
@@ -153,6 +209,7 @@ update = option.update
 update_all = option.updated
 model = option.model
 url = option.url
+multi = option.multi
 
 if mode == "image-background-eraser":
     bannerd()
@@ -162,15 +219,16 @@ if mode == "image-background-eraser":
 if mode == "video-background-eraser":
     bannerd()
     print(kelabu+" ["+banhijau+"#"+reset+kelabu+"]"+putih+" Mode Video Background Eraser...."+reset)
-    print(putih+" ["+banmerah+"*"+reset+putih+"] Coming Soon!!..."+reset);sys.exit()
-    print(putih+" ["+banmerah+"*"+reset+putih+"] Nantikan Update berikutnya!..."+reset);sys.exit()
+    print(kelabu+" ["+banhijau+"!"+reset+kelabu+"]"+putih+" Mungkin proses akan sedikit lambat tergantung deivce"+reset)
+    print(putih+" ["+banorange+"!"+reset+putih+"]"+kelabu+" Memproses..."+reset)
+    video_background_eraser(media, output, model)
 if hh:
     help(hh)
 if update_all:
     try:
         import socket, requests
+        socket.create_connection(('8.8.8.8', 53), timeout=3)
     except ImportError: print(kelabu+" ["+banorange+"!"+reset+kelabu+"]"+putih+" Module Requests tidak ditemukan, silakan install: pip install requests");sys.exit()
-    socket.create_connection(('8.8.8.8', 53), timeout=3)
     print(kelabu+" ["+banorange+"UPDATE"+reset+kelabu+"]"+putih+" Checking Update..."+reset);time.sleep(0.2)
     maind = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/main.py")
     colorr = requests.get("https://raw.githubusercontent.com/Sreetx/Eraser/refs/heads/master/src/color/warna.py")
